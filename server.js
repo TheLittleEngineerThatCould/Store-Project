@@ -2,51 +2,47 @@ const express = require('express')
 require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 3003 
+const city = require('./models/city.js')
+const mongoose = require('mongoose')
+const Stylist = require('./models/Stylist.js')
+const methodOverride = require('method-override')
 
 
-
-const fs = require('fs') // this engine requires the fs module like we did Saturday
-app.engine('hypatia', (filePath, options, callback) => { // define the view engine called hypatia
-  fs.readFile(filePath, (err, content) => {
-    if (err) return callback(err)
-    // this is an extremely simple view engine we'll be more complex later
-    const rendered = content.toString()
-      .replace('#title#', '<title>' + options.title + '</title>')
-      .replace('#message#', '<h1>' + options.message + '</h1>').replace('#content#','<div>'+ options.content + '</div>' )
-    return callback(null, rendered)
-  })
-})
-app.set('views', './views') // specify the views directory
-app.set('view engine', 'hypatia') // register the hypatia view engine
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+mongoose.connection.once("open", () => {
+  console.log("connected to mongo");
+});
 
 
-/*app.get('/', function (req, res) {
-    res.send('<h1>Hairdo Directory</h1>')
-})
-
-app.get('/city', function (req, res) {
-    res.send('<h1>Choose Your City</h1>')
-})*/
+app.set('view engine', 'jsx')
+app.engine('jsx', require('express-react-views').createEngine())
+app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    res.render('template', { title: 'Hairdo Directory', message: 'Hairdo Directory', content: '' })
+  res.redirect('/stylist')
+})
+
+
+
+app.get('/stylist', (req, res) => {
+  Stylist.find({},(err, allStylist)=>{
+    res.render('Index', {
+      stylist: allStylist
+    })
   })
-  
-  app.get('/city', (req, res) => {
-    res.render('template', { title: 'Choose Your City', message: 'Choose Your City', content: '' })
-  })
-  
-  app.get('/stylist', (req, res) => {
-    res.render('template', { title: 'Stylist', message: 'Stylist', content: '' })
-  })
+});
 
 
+app.get('/stylist/new', (req, res) => {
+  res.render("New")
+})
 
-
-
-
-
-
+app.
 
 
 
