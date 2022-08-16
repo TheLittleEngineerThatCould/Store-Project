@@ -42,7 +42,50 @@ app.get('/stylist/new', (req, res) => {
   res.render("New")
 })
 
-app.
+app.post('/stylist/', (req, res) => {
+  Stylist.create(req.body, (err, createdStylist) => {
+    res.redirect('/stylist')
+  })
+});
+
+app.get('/stylist/:id', (req, res) => {
+  Stylist.findById(req.params.id, (err, foundStylist) => {
+    console.log(foundStylist)
+    res.render('Show', {
+      stylist: foundStylist
+    })
+  })
+})
+
+app.get('/stylist/:id/edit', (req, res) =>
+{
+    Stylist.findById(req.params.id, (error, foundStylist) => {
+        if(!error) {
+            res.render('Edit', {
+                stylist: foundStylist
+            })
+        } else {
+            res.send({
+                message:errorMessage
+            })
+        }
+    })
+})
+
+app.put('/stylist/:id', (req, res) => {
+  Stylist.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+  }, (error, stylist) => {
+      res.redirect(`/stylist/${req.params.id}`)
+  })
+})
+
+app.delete('/stylist/:id', (req, res) => {
+  console.log('we are deleting')
+  Stylist.findByIdAndRemove(req.params.id, (err, data) => {
+      res.redirect('/stylist')
+  })
+})
 
 
 
