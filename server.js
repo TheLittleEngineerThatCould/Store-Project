@@ -4,7 +4,7 @@ const app = express()
 const port = process.env.PORT || 3003 
 const city = require('./models/city.js')
 const mongoose = require('mongoose')
-const Stylist = require('./models/Stylist.js')
+const Stylist = require('./models/stylist.js')
 const methodOverride = require('method-override')
 
 
