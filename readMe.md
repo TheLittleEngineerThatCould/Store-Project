@@ -1,14 +1,11 @@
-URL: /city/
-HTTP Verb: GET
-Action: index
-Notes: INDEX when a user types localhost:3000/cityin browser this route shows a listor indexof all major cities in USA
+Here is my CRUD project. Youtube: https://youtu.be/_V0aE8mP0Wg 
 
-URL: /city/stylist
+URL: stylist
 HTTP Verb: GET
 Action: index
 Notes: INDEX when a user types localhost:3000/city/stylist in browser this route shows a list indexof stylist of the major cities in USA
 
-URL: /city/stylist/new
+URL: new
 HTTP Verb: GET
 Action : new
 Notes: NEW when a user types localhost:3000/city/stylist/new in browser this route shows the user a form to create a NEWstylist
