@@ -11,11 +11,11 @@ const React = require('react')
                          </head>
                          <body>
                              <h1>Stylist</h1>
-                             <h2>{stylist.name}</h2><br/>
+                             <h1>{stylist.name}</h1><br/>
                            <img src={stylist.img}></img><br/>
-                           <h2>{stylist.city}</h2>
-                           <h2>{stylist.address}</h2>
-                           <h2>{stylist.averagePrice}</h2>
+                           <h3>{stylist.city}</h3>
+                           <h3>{stylist.address}</h3>
+                           <h3>{stylist.averagePrice}</h3>
                            <form action={`/stylist/${stylist.id}?_method=DELETE`} method='POST'><button type = "submit">Delete</button></form>
 
                  <a href="/stylist">Back to the Index Page</a><br />
